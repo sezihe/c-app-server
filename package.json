@@ -1,0 +1,11 @@
+{
+  "name": "celeb-m-maker-app-server",
+  "version": "1.0.0",
+  "description": "The backend of a web app used to contibute money to Celebrities",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel S. Ezihe",
+  "license": "MIT"
+}
