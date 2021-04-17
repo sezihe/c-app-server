@@ -1,7 +1,7 @@
-const Koa = require('koa');
-const koaMorgan = require('koa-morgan');
-const koaHelmet = require('koa-helmet');
-const koaBodyParser = require('koa-bodyparser');
+const express = require('express');
+const morgan = require('morgan');
+const helmet = require('helmet');
+const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
 
@@ -19,89 +19,18 @@ mongoose.connect(
 // check for MongoDb connection error
 mongoose.connection.on("error", err => console.log(`DB connection error: ${err.message}`));
 
-const app = new Koa();
+const app = express();
 
 // bringing in the routes
 const authRoutes = require('./routes/auth');
 
 // using middlewares
-app.use(koaMorgan('tiny'));
-app.use(koaHelmet());
-app.use(koaBodyParser({
-    enableTypes: ['json'],
-    jsonLimit: '5mb',
-    strict: true,
-    onerror: err => {
-        console.log("Body Parser Error!", err);
-    }
-}));
+app.use(morgan('tiny'));
+app.use(helmet());
+app.use(bodyParser.json());
 
 // using routes
-app.use(authRoutes.routes());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.use('/auth', authRoutes);
 
 // starting server
 const PORT = process.env.PORT || 3007;

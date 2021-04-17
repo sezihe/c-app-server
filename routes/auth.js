@@ -1,10 +1,11 @@
-const koaRouter = require('koa-router');
+const express = require('express');
 
-const { signup } = require('../controllers/auth');
-const { signupUserValidator } = require('../validator');
+const { signup, signin } = require('../controllers/auth');
+const { signUpValidator, signInValidator } = require('../validator');
 
-const router = new koaRouter();
+const router = express.Router();
 
-router.post('/auth/signup', signup);
+router.post('/signup', signUpValidator, signup);
+router.post('/signin', signInValidator, signin);
 
 module.exports = router;
